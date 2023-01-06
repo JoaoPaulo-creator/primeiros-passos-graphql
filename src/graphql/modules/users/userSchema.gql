@@ -1,0 +1,34 @@
+type User {
+  _id: ID!
+  firstName: String!
+  lastName: String!
+  email: String
+  active: Boolean!
+}
+
+
+"""
+
+'input' serve para criar objetos que serao reutilizados ao menos duas vezes, sem precisar ficar.
+reescrevendo o mesmo codigo. Nesse casso, esse input sera utilizado tanto na Mutation de criar usuario
+quanto ao de atualizar um usuario
+
+"""
+input UserInput {
+  firstName: String!
+  lastName: String!
+  email: String
+  active: Boolean!
+}
+
+
+type Query {
+  users: [User!]!
+  user(userID: ID): User!
+}
+
+type Mutation {
+  createUser(userData: UserInput!): User!
+  updateUser(userId: ID, userData: UserInput!): User!
+  deleteUser(userId: ID!): Boolean
+}
