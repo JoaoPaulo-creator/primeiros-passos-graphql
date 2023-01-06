@@ -1,7 +1,12 @@
 import { PostModel } from '../../../models/Post'
-
+import { UserModel } from '../../../models/User'
 
 export default {
+
+  Post: {
+    author: async (post) => await UserModel.findById(post.author)
+  },
+
    Query: {
     posts: () => PostModel.find(),
     post: (_, { id }) => PostModel.findById(id)
