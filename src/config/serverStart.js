@@ -1,4 +1,7 @@
 import { ApolloServer } from "apollo-server";
+import { PubSub } from "graphql-subscriptions";
+
+
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 
@@ -18,7 +21,8 @@ export async function startServer({ typeDefs, resolvers }) {
       console.log('✅ Connected to database')
     })
 
-  const server = new ApolloServer({ typeDefs, resolvers })
+  const pubsub = new PubSub()
+  const server = new ApolloServer({ typeDefs, resolvers, context: { pubsub } })
 
   server.listen()
   .then(({ url }) => {
